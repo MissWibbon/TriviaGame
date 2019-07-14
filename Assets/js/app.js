@@ -1,9 +1,11 @@
 window.onload = function() {
     var questions = [];
-    var count = 30;
+    var count = 20;
     var num = 0;
     var right = 0;
     var wrong = 0;
+    console.log(right);
+    console.log(wrong);
     
     
     $.ajax({
@@ -44,24 +46,33 @@ window.onload = function() {
         setInterval(time, 1000);
         
         function reset(){
-            
             $(".question").empty();
             $(".choices").empty();
-            count = 30;
+            count = 20;
             num++;
             getQuestions();
         }
-        $('.answer').on("click", () =>{
-            reset();
-            right++;
-        });
-        $('.notAnswer').on("click", () =>{
-            reset();
-            wrong++;
-        });
-        function getResults() {                
-            $('.results').css("display", "block");
 
+        $('.answer').on("click", () =>{
+            right++;
+            console.log(right);
+            alert(right);            
+            reset();
+
+        });
+
+        $('.notAnswer').on("click", () =>{
+            wrong++;
+            console.log(wrong);
+            alert(wrong);            
+            reset();
+
+        });
+        function getResults() {             
+               
+            $('.results').css("display", "block");
+            $('.timer').css("display", "none");
+            
             if(right > wrong){
                 $('.winLose').text("Congrats, you won!");
             }else if (wrong > right){
@@ -75,8 +86,6 @@ window.onload = function() {
         }
         if (num > 9){
             getResults();
-            $('.timer').css("display", "none");
-
         }
         getQuestions();
         console.log(questions);
