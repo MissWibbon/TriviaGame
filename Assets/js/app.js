@@ -2,6 +2,8 @@ window.onload = function() {
     var questions = [];
     var count = 30;
     var num = 0;
+    var right = 0;
+    var wrong = 0;
     
     $.ajax({
         method: 'GET',
@@ -23,11 +25,13 @@ window.onload = function() {
                 console.log(incorrect);            
 
             }                
-            var correct = questions[num].correct_answer;
-
+            var correct = $("<h6>");
+            correct.text(questions[num].correct_answer);
+            $('.choices').append(correct);
             console.log(question);
             console.log(correct);
         }
+        
         function time() {
         $("#timeLeft").html("<h6>" + count + "</h6>");
         
@@ -35,15 +39,15 @@ window.onload = function() {
             reset();
         }
         count--;
-    }    
-    setInterval(time, 1000);
-    function reset(){
-        $(".question").empty();
-        $(".choices").empty();
-        count = 30;
-        num++;
-        getQuestions();
-    }
+        }    
+        setInterval(time, 1000);
+        function reset(){
+            $(".question").empty();
+            $(".choices").empty();
+            count = 30;
+            num++;
+            getQuestions();
+        }
 
         getQuestions();
         console.log(questions);
