@@ -3,3 +3,19 @@ body {
     background-image: url('http://www.sclance.com/backgrounds/america-background/america-background_74582.jpg') !important;
     background-size: cover;
 }
+.notAnswer, .answer {
+    background-color: red;
+    text-align: center;
+    color: white;
+    padding: 5px;
+}
+.notAnswer:hover {
+    background-color: navy;
+}
+.answer:hover {
+    background-color: navy;
+}
+p {
+    text-align: center;
+    display: inline-block;
+}

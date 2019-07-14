@@ -5,6 +5,7 @@ window.onload = function() {
     var right = 0;
     var wrong = 0;
     
+    
     $.ajax({
         method: 'GET',
         url: "https://opentdb.com/api.php?amount=10&category=24&difficulty=medium&type=multiple"
@@ -23,12 +24,12 @@ window.onload = function() {
                 $('.choices').append(incorrect);
                 incorrect.addClass("notAnswer");
                 console.log(incorrect);            
-
+                $('.counter').text(num + 1);
             }                
             var correct = $("<h6>");
             correct.text(questions[num].correct_answer);
             $('.choices').append(correct);
-            console.log(question);
+            correct.addClass("answer");
             console.log(correct);
         }
         
@@ -41,14 +42,42 @@ window.onload = function() {
         count--;
         }    
         setInterval(time, 1000);
+        
         function reset(){
+            
             $(".question").empty();
             $(".choices").empty();
             count = 30;
             num++;
             getQuestions();
         }
+        $('.answer').on("click", () =>{
+            reset();
+            right++;
+        });
+        $('.notAnswer').on("click", () =>{
+            reset();
+            wrong++;
+        });
+        function getResults() {                
+            $('.results').css("display", "block");
 
+            if(right > wrong){
+                $('.winLose').text("Congrats, you won!");
+            }else if (wrong > right){
+                $('.winLose').text("You're a loser.");
+            }else {
+                $('.winLose').text("You are as smart as you are dumb.");
+            }
+                //$('.right').text(right);
+                //$('.wrong').text(wrong);
+                //$('#timeLeft').css("display", "none");
+        }
+        if (num > 9){
+            getResults();
+            $('.timer').css("display", "none");
+
+        }
         getQuestions();
         console.log(questions);
 
