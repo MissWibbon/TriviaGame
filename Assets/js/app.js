@@ -53,21 +53,20 @@ window.onload = function() {
             getQuestions();
         }
 
-        $('.answer').on("click", () =>{
+        $(document).on("click", ".answer", function() {
             right++;
-            console.log(right);
-            alert(right);            
+            console.log(right);           
             reset();
 
         });
 
-        $('.notAnswer').on("click", () =>{
+        $(document).on("click", ".notAnswer", function() {
             wrong++;
-            console.log(wrong);
-            alert(wrong);            
+            console.log(wrong);           
             reset();
 
         });
+
         function getResults() {             
                
             $('.results').css("display", "block");
