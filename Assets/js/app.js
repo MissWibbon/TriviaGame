@@ -4,8 +4,7 @@ window.onload = function() {
     var num = 0;
     var right = 0;
     var wrong = 0;
-    console.log(right);
-    console.log(wrong);
+
     
     
     $.ajax({
@@ -16,23 +15,25 @@ window.onload = function() {
         for (let i = 0; i < response.results.length; i++) {
             questions.push(response.results[i]);
         }       
-        console.log(questions);
         function getQuestions(){
+            if (num > 9){
+                return;
+            }
             questionDiv = $(".question").html("<h3>" + questions[num].question + "</h3>");
 
             for (i = 0; i < questions[num].incorrect_answers.length; i++){
                 var incorrect = $("<h6>");
                 incorrect.text(questions[num].incorrect_answers[i]);
                 $('.choices').append(incorrect);
-                incorrect.addClass("notAnswer");
-                console.log(incorrect);            
+                incorrect.addClass("notAnswer");            
                 $('.counter').text(num + 1);
             }                
+            console.log(questions[num]);
             var correct = $("<h6>");
             correct.text(questions[num].correct_answer);
             $('.choices').append(correct);
             correct.addClass("answer");
-            console.log(correct);
+            num++;
         }
         
         function time() {
@@ -49,21 +50,21 @@ window.onload = function() {
             $(".question").empty();
             $(".choices").empty();
             count = 20;
-            num++;
+            
             getQuestions();
         }
 
         $(document).on("click", ".answer", function() {
             right++;
-            console.log(right);           
             reset();
+            getResults();
 
         });
 
         $(document).on("click", ".notAnswer", function() {
-            wrong++;
-            console.log(wrong);           
+            wrong++;         
             reset();
+            getResults();
 
         });
 
@@ -79,15 +80,13 @@ window.onload = function() {
             }else {
                 $('.winLose').text("You are as smart as you are dumb.");
             }
-                //$('.right').text(right);
-                //$('.wrong').text(wrong);
+                $('#right').text(right);
+                $('#wrong').text(wrong);
                 //$('#timeLeft').css("display", "none");
         }
-        if (num > 9){
-            getResults();
-        }
+     
         getQuestions();
-        console.log(questions);
+        getResults();
 
     });
 }
